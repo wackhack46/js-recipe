@@ -6,12 +6,32 @@ git commit -m "コミット"
 git push origin master
 ```
 
-//HTML タグ内で指定した figure に id を割り当てる
+const display = document.getElementById("display")
+const button = document.getElementById("button")
 
-const figure = document.getElementById("figure")
+let count = 0
+//countUp という定数に以下の関数を代入する
+const countUp = function() {
+count += 1
+display.textContent = count / 100
+}
+//変数 id は値を持たない
+let id = null
 
-//figure.onclick に関数(function())を代入すると、ボタンをクリックしたときに関数(round の add or remove)が実行される。
+button.onclick = function(){
+//id が初期値のとき
+if (id === null) {
+// start
+id = setInterval(countUp, 10)
+button.textContent = "stop"
+}
+//if 文で id が値を持ちなおかつボタンがクリックされたとき
+else {
+// stop
+clearInterval(id)
+id = null
+button.textContent = "start"
+}
+}
 
-figure.onclick = function() {
-figure.classList.toggle("rounded")
-｝
+//発展 ★★・・・button.onclick = function()という動作が行われた後に countUp 定数に function()が代入されていくので、10ms ごとカウント → 表示となるため微小なずれが生じる。
